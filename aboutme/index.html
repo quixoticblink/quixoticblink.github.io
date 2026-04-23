@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhishek Kaul</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #555;
+    --faint: #888;
+    --link: #1a5490;
+    --link-hover: #c03020;
+    --rule: #ddd;
+    --bg: #fdfdfa;
+    --code-bg: #f4f2ec;
+    --accent: #8b2e2e;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--bg);
+    max-width: 780px;
+    margin: 40px auto;
+    padding: 0 24px 80px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: normal;
+    margin: 0 0 4px 0;
+    letter-spacing: -0.01em;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 32px 0 8px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--rule);
+    font-family: Georgia, serif;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 20px 0 4px 0;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 14px 0 2px 0;
+    color: var(--ink);
+  }
+  p { margin: 6px 0 10px 0; }
+  a {
+    color: var(--link);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+  }
+  .tagline {
+    color: var(--muted);
+    font-style: italic;
+    font-size: 15px;
+    margin: 0 0 4px 0;
+  }
+  .contact {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 8px 0 24px 0;
+  }
+  .contact a { color: var(--muted); }
+  .contact a:hover { color: var(--link-hover); }
+  .contact span { margin: 0 6px; color: var(--faint); }
+
+  nav.toc {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    background: var(--code-bg);
+    border: 1px solid var(--rule);
+    padding: 10px 14px;
+    margin: 16px 0 28px 0;
+    color: var(--muted);
+  }
+  nav.toc a { color: var(--link); margin-right: 14px; white-space: nowrap; display: inline-block; }
+  nav.toc .label { color: var(--faint); margin-right: 8px; }
+
+  ul { padding-left: 20px; margin: 6px 0 10px 0; }
+  li { margin: 3px 0; }
+
+  .meta {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    color: var(--faint);
+  }
+  .date { color: var(--faint); font-variant-numeric: tabular-nums; }
+
+  .entry {
+    margin: 14px 0 18px 0;
+  }
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .entry-title { font-weight: bold; }
+  .entry-sub { color: var(--muted); font-style: italic; }
+  .entry-date {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    color: var(--faint);
+    white-space: nowrap;
+  }
+  .entry-body { margin-top: 2px; color: var(--ink); }
+  .entry-outcome {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 2px;
+  }
+  .entry-outcome::before { content: "→ "; color: var(--accent); }
+
+  .tag-list {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  .tag-list span {
+    display: inline-block;
+    padding: 1px 6px;
+    background: var(--code-bg);
+    border-radius: 2px;
+    margin: 2px 3px 2px 0;
+  }
+
+  .quote {
+    border-left: 3px solid var(--rule);
+    padding: 2px 14px;
+    margin: 10px 0;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 14px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+
+  code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  .footer {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    color: var(--faint);
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .header {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .header-text { flex: 1; min-width: 0; }
+  .portrait {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 1px solid var(--rule);
+    flex-shrink: 0;
+  }
+  @media (max-width: 600px) {
+    .header { flex-direction: column-reverse; align-items: flex-start; gap: 16px; }
+    .portrait { width: 96px; height: 96px; }
+  }
+
+  .expertise-chips {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin: 10px 0 0 0;
+    line-height: 2;
+  }
+  .expertise-chips span {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--code-bg);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    margin-right: 4px;
+  }
+
+  .inline-list {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  details {
+    margin: 8px 0;
+    font-size: 14px;
+  }
+  details summary {
+    cursor: pointer;
+    color: var(--link);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    user-select: none;
+  }
+  details summary:hover { color: var(--link-hover); }
+  details[open] summary { margin-bottom: 8px; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 32px;
+    margin-top: 8px;
+  }
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .entry-head { flex-direction: column; gap: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-text">
+    <h1>Abhishek Kaul</h1>
+    <p class="tagline">Associate Partner, AI Strategy &amp; Transformation, IBM Singapore.</p>
+    <p class="contact">
+      <a href="mailto:abhishekkaul@gmail.com">abhishekkaul@gmail.com</a>
+      <span>·</span>
+      <a href="tel:+6598553704">+65 9855 3704</a>
+      <span>·</span>
+      <a href="https://www.linkedin.com/in/kauls/">linkedin/kauls</a>
+      <span>·</span>
+      <a href="https://abhishekkauls.medium.com/">medium</a>
+      <span>·</span>
+      <a href="https://www.credly.com/users/abhishek-kaul">credly</a>
+      <span>·</span>
+      <a href="https://www.credential.net/profile/abhishekkauls/wallet">accredible</a>
+    </p>
+  </div>
+  <img src="abhishek-photo.jpg" alt="Abhishek Kaul" class="portrait">
+</div>
+<!--
+  TODO: Link GitHub (github.com/quixoticblink) once the profile is cleaned up.
+  Current state: 173 repos, but the visible ones are mostly forks from Coursera
+  coursework and IBM Watson samples — links out to a view that undercuts the
+  rest of the page. Revisit once 3-6 showcase repos are pinned (candidates: a
+  companion notebook to the mining materials transportation chapter, a small
+  RAG/ontology scaffold tied to Agent9D, an AI business-case calculator from
+  the Medium essay, a sustainability analytics notebook). Also add a profile
+  README at quixoticblink/quixoticblink pulling from this wiki bio.
+-->
+
+<div class="expertise-chips">
+  <span>Digital Strategy</span>
+  <span>GenAI &amp; Advanced Analytics</span>
+  <span>Sustainability &amp; ESG</span>
+  <span>Cloud &amp; Data Engineering</span>
+  <span>Manufacturing / Retail / Supply Chain / Commodity</span>
+  <span>SAP S/4</span>
+  <span>Executive Engagement</span>
+</div>
+
+<div class="quote">
+  "Curiosity, collaboration, and innovation make everything possible."
+</div>
+
+<p>
+  I translate complex business problems into production-grade AI and data systems. Twenty years at IBM in technology consulting and leadership; the last ten focused on predictive AI, GenAI, and cloud data platforms for energy, infra, commodities, manufacturing, retail, and sustainability clients. In my current role as Associate Partner, AI Strategy &amp; Execution, I lead strategic client portfolios, drive P&amp;L accountability, and deliver outcomes across Industry 4.0, SAP transformation, and next-gen AI. Known for a purpose-driven approach, a bias toward measurable outcomes, and building high-performing teams that ship.
+</p>
+
+<p>
+  Based in Singapore; delivered across 20+ countries including India, Sweden, Germany, Austria, Italy, the US, UAE, Russia, and China. Two granted US patents. Doctoral scholar at Golden Gate University (DBA, 2024–2027) researching GenAI adoption in technology consulting firms.
+</p>
+
+<p>
+  Highlights.
+</p>
+
+<nav class="toc">
+  <span class="label">jump to:</span>
+  <a href="#now">now</a>
+  <a href="#bio">bio</a>
+  <a href="#work">work</a>
+  <a href="#patents">patents</a>
+  <a href="#writing">writing</a>
+  <a href="#talks">talks</a>
+  <a href="#education">education</a>
+  <a href="#credentials">credentials</a>
+  <a href="#affiliations">affiliations</a>
+  <a href="#contact">contact</a>
+</nav>
+
+<h2 id="now">now</h2>
+<p>
+  <span class="meta">updated 2026-04</span>
+</p>
+<ul>
+  <li>Selected as an inaugural <b>SGLN Tech Leader</b> — Singapore Leaders Network's technology-industry cohort, managed by the Human Capital Leadership Institute (HCLI) and supported by the Singapore EDB and IMDA. <a href="https://www.sgln.hcli.org/sgln-tech/">Programme page</a>.</li>
+  <li>Leading <b>Agent9D for Keppel Infra</b> — an engineering knowledge assistant using domain ontologies, engineering document intelligence, and expert-guided AI training for Waste-to-Energy engineering knowledge capture. Featured in <a href="https://www.keppel.com/insights/feature-stories/keppels-ai-edge-transforming-asset-management-and-operations-with-intelligence/">Keppel's AI Edge</a>.</li>
+  <li>Account Partner for <b>Far East Organization and BP Singapore</b>.</li>
+  <li>Writing my DBA thesis — <i>Strategic Impact of GenAI on Technology Consulting Firms</i> — focused on how GenAI reshapes delivery models, client engagement, and solution economics.</li>
+  <li>ExCo member, Business Analytics Chapter, Singapore Computer Society.</li>
+</ul>
+
+<h2 id="bio">bio</h2>
+<p>
+  I grew up in India, trained as an Electronics &amp; Telecommunication engineer at Pune University, and took an MBA at IIT Kharagpur. I joined IBM India in 2006 as a SAP Supply Chain consultant and spent the first decade deep in supply chain and ERP-led business transformation across the global steel, metals, and manufacturing industry — enough plants, mills, and refineries to build a strong intuition for how physical businesses actually run.
+</p>
+<p>
+  I moved to IBM Singapore in 2016 and pivoted into analytics, then AI, then GenAI. I've picked up each wave as it landed — SPSS, then Python, then deep learning, then GenAI, and now spec-driven coding — so I can keep bringing innovative solutions to clients that add real value to their business. I am an Associate Partner in IBM Consulting's Singapore practice; my DBA research sits inside the same question: how GenAI is remaking the economics and delivery model of technology consulting.
+</p>
+<p>
+  I am a self-starter, product-minded, and services-oriented. I like working at the boundary between technical teams and business stakeholders where translation is the actual work. I hold two US patents and have written in peer-reviewed venues on the business case for AI, AI ethics, predictive maintenance scheduling, and green IT.
+</p>
+
+<h2 id="work">selected work</h2>
+<p class="inline-list">
+  A chronological-ish selection. See LinkedIn for the full list.
+</p>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Agent9D</span> <span class="entry-sub">— Keppel Infrastructure (Waste-to-Energy)</span></div>
+    <span class="entry-date">2026-01 — present</span>
+  </div>
+  <div class="entry-body">
+    Engineering knowledge assistant for Keppel's Waste-to-Energy engineering teams. I'm the project lead and AI SME — scoping domain ontologies, engineering document intelligence, expert-guided training loops, and the requirements spec. The goal is to capture and make accessible the deep tacit knowledge that currently lives only in senior engineers' heads.
+  </div>
+  <div class="tag-list"><span>RAG</span> <span>ontologies</span> <span>document intelligence</span> <span>expert-in-the-loop</span></div>
+  <div class="entry-outcome">Featured on Keppel's corporate AI narrative; C-suite sponsored.</div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">SAP S/4 HANA RISE — Greenfield</span> <span class="entry-sub">— Yeo's</span></div>
+    <span class="entry-date">2024-07 — 2025-12</span>
+  </div>
+  <div class="entry-body">
+    Account Partner and BPR / AI Lead for a full greenfield S/4 HANA RISE implementation including SAP Group Reporting and SAP DRC for e-invoicing. On top of the core ERP work, I ran business process reengineering and layered in AI pilots for supply chain.
+  </div>
+  <div class="tag-list"><span>SAP S/4 RISE</span> <span>Group Reporting</span> <span>DRC</span> <span>BPR</span></div>
+  <div class="entry-outcome">Delivered with high NPS from the customer.</div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Brownfield SAP S/4 HANA + AMS</span> <span class="entry-sub">— Far East Organization</span></div>
+    <span class="entry-date">2023-01 — present</span>
+  </div>
+  <div class="entry-body">
+    Upgrade from SAP ECC to S/4 HANA with Cloud Process Integration, Flexible Workflow, and SAP Fiori, followed by a 5-year AMS. Account Partner and AI Lead — including GenAI pilot development layered on top of the core programme. <a href="https://www.ibm.com/case-studies/far-east-organization">IBM case study</a>.
+  </div>
+  <div class="tag-list"><span>SAP ECC → S/4</span> <span>CPI</span> <span>Fiori</span> <span>AMS</span> <span>GenAI pilots</span></div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Pre-trade analytics platform</span> <span class="entry-sub">— BP trading benches</span></div>
+    <span class="entry-date">2022-01 — present</span>
+  </div>
+  <div class="entry-body">
+    A custom big-data analytics platform on AWS ingesting AIS vessel data and external signals to identify supply-demand gaps at refineries. Account Partner and AI Lead. Ongoing product enhancements — shifted the engagement model from project-centric to product-centric, which I wrote about in <a href="https://abhishekkauls.medium.com/shifting-from-a-project-centric-mindset-to-product-centric-mindset-for-ai-driven-innovation-634d1a9e67fc">this essay</a>.
+  </div>
+  <div class="tag-list"><span>AWS</span> <span>AIS</span> <span>commodities</span> <span>pre-trade</span> <span>product-led</span></div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Vessel chartering analytics</span> <span class="entry-sub">— Vale</span></div>
+    <span class="entry-date">2022-03 — 2023-02</span>
+  </div>
+  <div class="entry-body">
+    Big-data solution on Azure for vessel supply-demand prediction, feeding into time charter rate prediction. Led delivery, a design thinking workshop, and the maritime domain translation. Wrote up the approach to building the business case <a href="https://abhishekkauls.medium.com/developing-the-business-case-for-ai-solution-987b2982c296">here</a>.
+  </div>
+  <div class="tag-list"><span>Azure</span> <span>maritime</span> <span>time charter</span> <span>design thinking</span></div>
+  <div class="entry-outcome">Used by Vale's marketing team as a reference before committing to a charter.</div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Crew turnover analytics</span> <span class="entry-sub">— Pacific Carrier Limited (KSL)</span></div>
+    <span class="entry-date">2021-08 — 2022-05</span>
+  </div>
+  <div class="entry-body">
+    Crew turnover attrition analytics on Azure plus a roadmap of maritime operational use cases. Established the analytics foundation for PCL's operational intelligence programme.
+  </div>
+  <div class="tag-list"><span>Azure</span> <span>HR analytics</span> <span>maritime</span></div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Global plastic-waste data lake</span> <span class="entry-sub">— Alliance to End Plastic Waste</span></div>
+    <span class="entry-date">2020-06 — 2022-01</span>
+  </div>
+  <div class="entry-body">
+    Data &amp; analytics lead for a global data lake on IBM Cloud consolidating external plastic-waste data with a governance framework and archetype modelling to fill missing-data gaps. <a href="https://www.ibm.com/case-studies/alliance-to-end-plastic-waste">IBM case study</a>.
+  </div>
+  <div class="tag-list"><span>IBM Cloud</span> <span>ESG</span> <span>data governance</span> <span>archetype modelling</span></div>
+  <div class="entry-outcome">Identified viable interventions for reducing mismanaged plastic waste.</div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Digital twin for power-plant operations</span> <span class="entry-sub">— Sembcorp</span></div>
+    <span class="entry-date">2020-01 — 2021-02</span>
+  </div>
+  <div class="entry-body">
+    AI Lead for a digital-twin deployment on Azure covering real-time plant monitoring, CCTV-based PPE safety-violation detection, and automated daily P&amp;L reporting. The self-learning digital-twin idea behind the programme later became a <a href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/20230022733">granted US patent</a>.
+  </div>
+  <div class="tag-list"><span>Azure</span> <span>digital twin</span> <span>CV / PPE</span> <span>RL</span></div>
+  <div class="entry-outcome">Reduced daily P&amp;L report generation from <b>5 hours to 5 minutes</b>; deployed real-time monitoring and proactive safety-violation detection.</div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Self-service data lake for S&amp;OP reporting</span> <span class="entry-sub">— Delfi</span></div>
+    <span class="entry-date">2019-02 — 2019-12</span>
+  </div>
+  <div class="entry-body">
+    Architect for a cross-country data lake and self-service reporting solution on AWS supporting Sales, Supply Chain, Finance, and Operations.
+  </div>
+  <div class="tag-list"><span>AWS</span> <span>data lake</span> <span>self-service BI</span></div>
+  <div class="entry-outcome">Reduced commercial and management reporting effort by <b>>25%</b>.</div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Haul-truck predictive maintenance &amp; digital roadmap</span> <span class="entry-sub">— United Tractors</span></div>
+    <span class="entry-date">2018-08 — 2019-03</span>
+  </div>
+  <div class="entry-body">
+    Analytics SME and digital solutions lead for a transformation journey including a command centre, employee app, and customer app. Led the analytics use-case roadmap and the predictive maintenance pilot in SPSS.
+  </div>
+  <div class="tag-list"><span>predictive maintenance</span> <span>SPSS</span> <span>digital apps</span></div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Melt-flow-rate ML model</span> <span class="entry-sub">— Denka</span></div>
+    <span class="entry-date">2018-04 — 2018-09</span>
+  </div>
+  <div class="entry-body">
+    AI solutions lead for a data-science engagement translating chemical-manufacturing domain requirements into hypotheses for optimal catalyst quantity during batch-to-batch and grade-to-grade changes.
+  </div>
+  <div class="tag-list"><span>chemical mfg</span> <span>batch optimisation</span> <span>data science</span></div>
+  <div class="entry-outcome">Predictive model for optimal catalyst quantity, reducing material waste.</div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Store and staff productivity analytics</span> <span class="entry-sub">— Bata</span></div>
+    <span class="entry-date">2017-12 — 2018-05</span>
+  </div>
+  <div class="entry-body">
+    ML and deep-learning models for product bundling campaigns, member-segment promotions, and store productivity. Built the benefit case and led the engagement as PM.
+  </div>
+  <div class="tag-list"><span>retail</span> <span>deep learning</span> <span>segmentation</span></div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Watson Marketing pre-sales chatbot</span> <span class="entry-sub">— Electrolux</span></div>
+    <span class="entry-date">2017-08 — 2018-01</span>
+  </div>
+  <div class="entry-body">
+    Implemented Watson Assistant with backend API integrations, telemetry, and call-back features for a pre-sales conversational discovery experience.
+  </div>
+  <div class="tag-list"><span>Watson Assistant</span> <span>conversational AI</span> <span>APIs</span></div>
+  <div class="entry-outcome">+10% product page hit rate through conversational product discovery.</div>
+</div>
+
+<h3>IBM role progression</h3>
+<p class="inline-list">
+  Nineteen-plus years at IBM. Roles in order, most recent first.
+</p>
+<ul>
+  <li><b>Associate Partner — AI Strategy &amp; Transformation</b> · Singapore · Jan 2022 – present. P&amp;L accountability for key accounts; advising clients on AI strategy and execution, digital transformation, and sustainability pathways.</li>
+  <li><b>Data Insights and AI Practice Leader</b> · Singapore · Apr 2018 – Dec 2021. Led the Data &amp; AI practice for industrial and distribution sectors. Delivered predictive models for sales demand, equipment failure, production yield and quality; conversational AI with NLP; visual-recognition safety applications; and production-grade AI across Industry 4.0, digital twins, data platforms, market intelligence, and predictive maintenance.</li>
+  <li><b>Advanced Analytics Industry Consultant</b> · Singapore · Apr 2016 – Mar 2018. Joined the IBM Innovation Studio Singapore as Industry Analytics Lead. Grew the regional analytics business with design thinking and agile. Picked up Python, SPSS, and Watson hands-on.</li>
+  <li><b>Senior Managing Consultant, Industrial Products Global CoC</b> · India · Jan 2015 – Apr 2016. Global IP Industry Segment Leader. Drove signings across 20+ countries from pre-sales through deploy. Published thought leadership and reusable assets; led delivery of strategic projects with multimillion-dollar outcomes.</li>
+  <li><b>Global Metals SME</b> · India · Jun 2009 – Jan 2015. Global recognition as a Metals industry expert. PM / team lead / process lead / application lead on projects across India, Sweden, Germany, Austria, Italy, US, UAE, Russia, China, and more. Breadth across org design, business case development, marketing &amp; supply-chain strategy, KPI benchmarking, IT/OT convergence, and full-lifecycle ERP-SCM.</li>
+  <li><b>Consultant</b> · India · Jun 2006 – Jun 2009. Started with SAP SCM implementation. Delivered S&amp;OP planning and BPR across tyre manufacturing (Apollo), integrated steel plants (Ispat — Alibagh, Raigarh, Bokaro), and mining. Built the APO planning optimiser for steel — discrete + process with inverted BOM and variant characteristics.</li>
+</ul>
+
+<h3>Before IBM</h3>
+<ul>
+  <li><b>Software Engineer</b> · Infosys · Dec 2003 – Apr 2004. First role out of engineering school; brief stint before joining IBM via IIT Kharagpur.</li>
+</ul>
+
+<details>
+  <summary>Cognitive Studio PoC portfolio (2016 – 2017) — 15+ design thinking / Watson / ML engagements</summary>
+  <p>
+    During the IBM Innovation Studio years, I ran the Industry Analytics function — facilitating design thinking workshops and leading proof-of-value builds using IoT, Watson, machine learning, NLP, and visual recognition. A representative list:
+  </p>
+  <ul>
+    <li><b>Indonesian mining contractor</b> — digital reinvention roadmap workshop; led PoC for predictive maintenance and spare-parts forecast on dump trucks.</li>
+    <li><b>Indonesian telco</b> — fleet management solution workshop with IoT prototypes.</li>
+    <li><b>Malaysian palm producer</b> — digital reinvention roadmap for plantations, supply chain, and refinery; led yield prediction models for palm plantations using big data and ML.</li>
+    <li><b>Malaysian tunnel boring company</b> — predictive maintenance of cutter head plus operator advisor prototype.</li>
+    <li><b>Philippines geothermal producer</b> — productivity and NPT-reduction workshop for reservoir and drilling engineers.</li>
+    <li><b>Australian mining company</b> — failure prediction for car dumpers / VSD drives using ML; plus HR and Finance design thinking + Watson follow-on.</li>
+    <li><b>Australian online retailer</b> — customer segmentation and basket analysis models.</li>
+    <li><b>Thai petrochemical company</b> — predictive maintenance for compressors and quench oil towers.</li>
+    <li><b>Thai telco</b> — chatbot prototype integrated with Facebook for a promotion use case.</li>
+    <li><b>Large oil &amp; gas company</b> — New Energies division: design thinking on the "customer as energy producer/consumer" five-year horizon.</li>
+    <li><b>Singapore agriculture firm</b> — image classification model for rice smut disease detection.</li>
+    <li><b>Singapore insurance &amp; banking firm</b> — design thinking to monetise combined data sources.</li>
+    <li><b>Singapore recruitment firm</b> — resume-to-job matching using text analytics.</li>
+    <li><b>Singapore electronics appliance company</b> — incident trend detection on call-centre logs using Watson NLP.</li>
+  </ul>
+</details>
+
+<details>
+  <summary>project detail (2006 – 2016) — IBM India / SAP &amp; Metals years</summary>
+  <p>
+    The role-progression above is the summary. Below is the project-by-project backup — the actual engagements that built the Metals and SAP muscle and seeded the pivot to analytics.
+  </p>
+
+  <h4>IBM IP &amp; CP CoC — Metals Segment Lead (2014 – 2016)</h4>
+  <p class="inline-list">Drove signings through direct client-engagement support; responsible for $200M+ in Metals-segment sales over this period.</p>
+  <ul>
+    <li><b>French pipe manufacturer</b> — sales-order management process audit and benchmarking.</li>
+    <li><b>Large Indian metals &amp; mining player</b> — KPI benchmarking for aluminium and copper across mining, smelting, maintenance.</li>
+    <li><b>Largest stainless steel producer</b> — trading-loss reduction through nickel commodity-fluctuation management.</li>
+    <li><b>Brazilian mining group</b> — S&amp;OP process improvement for Malaysian port and transshipment operations.</li>
+    <li><b>Australian flat steel producer</b> — CIPA supply chain review and improvement identification.</li>
+    <li><b>Russian-American pipe manufacturer</b> — multi-plant ERP deployment for US supply chain.</li>
+    <li><b>Indian-European steel manufacturer</b> — smart steel factory manufacturing re-design.</li>
+    <li><b>Gothenburg bearing manufacturer (SKF)</b> — conceptual design aligned to the group's 2020 end-state vision.</li>
+    <li><b>French industrial manufacturer</b> — QA for a business transformation harmonising functional practices.</li>
+    <li><b>Indian mining, power &amp; trading company</b> — IT solution for a coal trading business.</li>
+    <li><b>NYC Industry Co-Lab</b> — Metals segment leader; PoV development across commodity trading &amp; risk, energy optimisation, integrated quality and asset management, EPM, IT-OT convergence.</li>
+  </ul>
+
+  <h4>SKF "UNITE" ERP Programme — Make / MES process lead (2013 – 2014)</h4>
+  <p>
+    Group-wide ERP template on SAP Business Suite using IBM Ascendant. Led end-to-end delivery of planning (MPS, APS, MRP), production execution, MES, and external processing. Guided 365+ onsite mandays of custom SAP SCM PPDS / GATP development that SKF treated as its competitive-differentiating core. First-site go-live covered 13 assembly lines and €250M annual production.
+  </p>
+
+  <h4>Monnet Ispat "Project Abhiyaan" — PM, Strategy &amp; Transformation (2012 – 2013)</h4>
+  <p>
+    People-Process-Technology design for a new 1.5 MTPA integrated steel plant business. Led the Operations and Supply Chain teams across marketing strategy, org design, annual and short-term planning, quality, maintenance, logistics strategy, sourcing strategy, and procurement/inventory process design. Team of 15 IBM FTEs. Closed on projected GP without contingency; 100% payment realisation. Client citations from Deputy MD, Marketing Head, and Group HR Head.
+  </p>
+
+  <h4>SKF bearing manufacturer — ERP/SCM project scoping (2012)</h4>
+  <p>
+    Forecast-to-Fulfill process stream lead for Project Preparation. Scoped release-0 pilot including business process, functional, organisation, and RICEF scope; drove blueprint preparation and start-up.
+  </p>
+
+  <h4>IBM Metals &amp; Mining Center of Excellence — Global SME (2009 – 2012)</h4>
+  <p class="inline-list">Personally responsible for $200M+ in sales. A long tail of pre-sales, solutioning, and implementation-SME work:</p>
+  <ul>
+    <li>Large <b>Brazilian steel manufacturer</b> — SAP-based rules engine for sales and production.</li>
+    <li>Project Snake — cloud GST strategy for a large Chinese steel company.</li>
+    <li><b>SKF Gothenburg</b> — APO PoC showcasing planning and ATP fitment.</li>
+    <li>Saudi Arabia — joint Siemens (MES) + IBM (SAP) solution.</li>
+    <li>Singapore steel fabrication producer — warehouse management and transportation optimisation.</li>
+    <li>Kalinganagar steel manufacturer — KPI tree linking operational to financial metrics on the IBM Smarter Steel Plant framework.</li>
+    <li>Russian pipe manufacturer — S&amp;OP PoC.</li>
+    <li>Wuhan steel manufacturer — APO architecture for on-time delivery with legacy systems.</li>
+    <li><b>Voestalpine (Linz)</b> — Steel SME during implementation and subsequent blueprint workshop for planning integrated with a rules engine.</li>
+    <li>Indian pipe manufacturer (Delhi) — Steel SME for APO implementation.</li>
+    <li>South African copper mines — SAP proposal for mining-operations financial visibility.</li>
+    <li><b>Mine-to-Port optimisation PoC</b> — rail scheduling, port operations, and ship-pier allocation for an Australian mining company.</li>
+    <li>Brazilian emerging mining group — CBM analysis and tech roadmap on IBM's "Mine in a Box" concept.</li>
+    <li>India's largest non-ferrous metals and mining company — corporate-dashboard KPIs across group companies.</li>
+    <li>Largest Russian steel manufacturer — product definition and cost-planning integration for profit maximisation.</li>
+    <li>Scoping workshops and proposals across India (Delhi, Haryana, Raipur, Raigarh, Indore, Mumbai), Japan, China (Wuhan), Singapore, Europe (Warwick, Valencia, Luxembourg, Stockholm, Linz, Helsinki, Duisburg, France, Moscow, Cherepovets), Brazil, and US (Atlanta, Pittsburgh, NYC, Chicago).</li>
+  </ul>
+  <p>
+    Asset development: <b>Solution Architect for the IBM Global Steel Template</b> (SAP ECC + SCM APO); designed and developed the <b>IBM Global Mining Template</b>; continuously extended both with SAP and partner solutions.
+  </p>
+
+  <h4>ArcelorMittal Flat Carbon Americas — S&amp;OP process team lead (Jun 2009 – Nov 2009)</h4>
+  <p>
+    Aligned new technology-solution processes to increase customer satisfaction and employee efficiency. Positioned IBM's Global Steel Template as the best value proposition; ran Demand Planning and Supply Planning workshops to design S&amp;OP; built a PoC of the future-state process enablement; contributed to the business benefit case for the SAP implementation roadmap.
+  </p>
+
+  <h4>Lucchini Steel — APO senior consultant (Sep 2008 – May 2009)</h4>
+  <p>
+    SAP SCM 5.1 / ECC 6.0 roadmap and implementation for the Rail business line: blueprinting workshops, AS-IS / TO-BE documentation, Demand Planning and S&amp;OP configuration, user feedback, and gap rework.
+  </p>
+
+  <h4>Early SAP APO / SCM engagements (2006 – 2008)</h4>
+  <ul>
+    <li><b>IBM Innovation Studio</b> (2016–2017): Analytics SME for IBM Watson design-thinking workshops, value-stream mapping pilots, and 10+ proofs of value. Helped establish the Analytics-as-a-Service offering adopted by IBM's Data and AI practice in ASEAN.</li>
+    <li><b>Predictive maintenance — PTT Thailand</b> (2017): Industry &amp; analytics SME for a compressor/turbine monitoring deployment on IBM Predictive Maintenance and Quality.</li>
+    <li><b>SKF "UNITE" ERP programme</b> (2014–2016): Forecast-to-Fulfill process stream lead on a group-wide SAP roll-out. Delivered end-to-end planning and production execution for the first manufacturing unit (13 assembly lines, €250M annual production) including a custom MPS on SAP SCM PPDS.</li>
+    <li><b>Monnet Ispat "Project Abhiyaan"</b> (2012–2013): PM / supply chain lead for a people-process-technology programme to stand up a new steel plant. Closed on projected GP with 100% realisation.</li>
+    <li><b>IBM Industry Center of Competence — Metals</b> (2011–2012): Global Metals Segment Lead / SAP Solution Architect across 14+ global steel and metals accounts. Continuously enhanced the IBM Global Steel Template.</li>
+    <li><b>voestalpine</b> (2010–2011): S&amp;OP industry SME; delivered a high-level blueprint for integrated planning on SAP SCM-APO.</li>
+    <li><b>ArcelorMittal Flat Carbon Americas</b> (2009–2010): S&amp;OP process team lead; designed and delivered the S&amp;OP process on SAP.</li>
+    <li><b>Lucchini Steel</b> (2008–2009): APO senior consultant for blueprinting and configuration of Demand Planning and S&amp;OP for the Rail business line.</li>
+    <li><b>Corus (Tata Steel UK)</b> — Aug 2008 – Sep 2008: SCM process team member. Maturity profiling against steel-industry best practices; KPI identification and initiatives to reach maturity level 4.</li>
+    <li><b>IBM Global Steel Template</b> — Jun 2008 – Aug 2008: APO (SNP &amp; PPDS) team lead. Designed, blueprinted, configured, and tested SAP APO on mySAP SCM 5.1 + ECC 6.0; supported deployment at a large public-sector integrated steel manufacturer; ran demos with European, Japanese, Brazilian, and Australian steel companies; designed MES-to-SAP integration with PSI.</li>
+    <li><b>Jindal Steel (Raigarh)</b> — Feb 2008 – Jun 2008: BPR, process modelling and simulation using WebSphere Business Modeler (trained a 25+ person client team); AS-IS models and quantitative TO-BE recommendations; plus an IT roadmap with 30 initiatives and a BTO diagnostic using IBM's Component Business Model framework.</li>
+    <li><b>Ispat Industries</b> — Jun 2007 – Jan 2008: APO SNP team lead on a mySAP 5.0 implementation. DP, SNP Optimizer (contribution-per-hour on bottleneck resource), MTO/MTS, rolling-mill constraints, MRP, Deployment &amp; TLB inbound logistics, CTM outbound, CIF integration; SCM KPI reporting in BW.</li>
+    <li><b>Apollo Tyres</b> — Jan 2007 – Jun 2007: APO DP &amp; SNP team member on a mySAP SCM 5.0 upgrade (incl. South Africa design), Deployment &amp; TLB, SCOR-based KPIs in BW.</li>
+    <li><b>Apollo Tyres (initial)</b> — Sep 2006 – Nov 2006: mySAP SCM 3.1 high-level solution; AS-IS study, upgrade proposal, SCOR KPI review, roadmap.</li>
+    <li><b>Medical electronics industry</b> — Aug 2006 – Sep 2006: first assignment — APO 4.0 functional production support. DP &amp; SNP in US; GATP with product allocation and rules-based ATP in Europe; BOP / CIF queue / process-chain monitoring.</li>
+  </ul>
+</details>
+
+<h2 id="patents">patents</h2>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Self-learning manufacturing using digital twins</span></div>
+    <span class="entry-date">US 2023/0022733 A1</span>
+  </div>
+  <div class="entry-body">
+    Reinforcement-learning architecture for autonomous industrial optimisation via digital twins. Grew out of the Sembcorp engagement. <a href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/20230022733">USPTO</a>.
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Image storage across distributed computing systems</span></div>
+    <span class="entry-date">US 2022/0284118 A1</span>
+  </div>
+  <div class="entry-body">
+    Hybrid-cloud architecture for distributed storage of sensitive images. Addresses the data-sovereignty vs. elasticity tradeoff.
+  </div>
+</div>
+
+<h2 id="writing">writing</h2>
+<p class="inline-list">
+  Peer-reviewed book chapters (Springer, IntechOpen) and long-form essays on Medium. Full list on <a href="https://scholar.google.com/citations?hl=en&user=fjumZKMAAAAJ">Google Scholar</a>.
+</p>
+
+<h3>Peer-reviewed chapters</h3>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Virtual Assistants and Ethical Implications</span></div>
+    <span class="entry-date">IntechOpen · 2021 · <span class="meta">cited by 11</span></span>
+  </div>
+  <div class="entry-body">
+    Introduces the ethical principles that should govern virtual assistants — transparency, justice and fairness, non-maleficence, responsibility, and privacy — with practical guidelines for designers and developers building VAs ahead of regulation. <a href="https://www.intechopen.com/chapters/74746">IntechOpen</a>.
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Advanced analytics for mine materials transportation</span> <span class="entry-sub">— with A. Soofastaei</span></div>
+    <span class="entry-date">Springer · 2022 · <span class="meta">cited by 3</span></span>
+  </div>
+  <div class="entry-body">
+    In <i>Advanced Analytics in Mining Engineering: Leverage Advanced Analytics in Mining Industry to Make Better Business Decisions</i> (ed. Soofastaei). Covers analytics approaches for optimising bulk materials movement in mining operations. <a href="https://link.springer.com/chapter/10.1007/978-3-030-91589-6_19">Springer</a>.
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">An Innovative Maintenance Scheduling Framework for Preventive, Predictive Maintenance Using Ant Colony Optimization</span></div>
+    <span class="entry-date">IntechOpen · 2022 · <span class="meta">cited by 2</span></span>
+  </div>
+  <div class="entry-body">
+    Uses ant-colony optimisation to reconcile preventive and predictive maintenance with production constraints — predictive maintenance delivers the most value when aligned to the production plan, not optimised in isolation. <a href="https://www.intechopen.com/chapters/81105">IntechOpen</a>.
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Advanced analytics for ethical considerations in mining industry</span> <span class="entry-sub">— with A. Soofastaei</span></div>
+    <span class="entry-date">Springer · 2022 · <span class="meta">cited by 2</span></span>
+  </div>
+  <div class="entry-body">
+    Companion chapter in <i>Advanced Analytics in Mining Engineering</i>. Applies an ethics-by-design lens to the analytics and AI being deployed in mining — responsibility, safety, worker and community impacts. <a href="https://books.google.com.sg/books?id=H7daEAAAQBAJ">book preview</a>.
+  </div>
+</div>
+
+<h3>Industry thought leadership (IBM / Metals CoC era, 2011 – 2016)</h3>
+<p class="inline-list">
+  Industry-facing white papers, articles, C-suite contributions, and blog posts from the Metals &amp; Industrial Products Global CoC years — pre-dating the shift to peer-reviewed academic work. Most of the original hosting URLs have been retired as publishers consolidated; titles and venues preserved here.
+</p>
+<ul>
+  <li><i>Transform your manufacturing organization in four steps</i> — IoTone.com article · 2016</li>
+  <li><i>A new look into the world of SAP Integrated Business Planning</i> — SCM Expert · 2016</li>
+  <li><i>The Customer Focus and Operational Excellence "Tug-of-War"</i> — Insights on Business by IBM · Sep 2014</li>
+  <li><i>New frontiers on managing risk for metal companies</i> — Insights on Business by IBM · Aug 2014</li>
+  <li><i>Perfect availability — the hidden mantra to success</i> — Insights on Business by IBM · Jul 2014</li>
+  <li><i>Ten Reasons Why Metal Supply Chain is Different from Others</i> — APICS Magazine · Jul/Aug 2013</li>
+  <li><i>Leading through Connections</i> — IBM Global CEO Study · Industrial Products PoV · 2012</li>
+  <li><i>From Stretched to Strengthened</i> — IBM Global CMO Study · Industrial Products PoV · 2012</li>
+  <li><i>Best Practices for Implementing SAP APO SNP Optimizers</i> — SCM Expert · 2012</li>
+  <li><i>Steel Supply Chain Transformation Challenges — Key Learnings</i> — IBM Whitepaper · 2012</li>
+  <li><i>Best Practices for Evaluating SAP APO Optimizers — Learning From Case Studies</i> — SCM Expert · 2011</li>
+  <li><i>Integrated Operations for Metals Industry</i> and <i>Supply Chains of Steel</i> — IBM industry publications</li>
+</ul>
+
+<h3>Invited talks, panels &amp; conferences</h3>
+<p class="inline-list">20+ industry conference presentations and panels across US, Europe, India, and Singapore.</p>
+<ul>
+  <li><b>Ethics in AI for Mining Industry</b> — GMG Group Virtual Forum Series on AI · 2021</li>
+  <li><b>Big Data &amp; Analytics</b> — People Association Singapore, Meetup · 2017</li>
+  <li><b>Knowledge Data Visualization</b> — IDEAS session, Singapore Computer Society · 2017</li>
+  <li><b>Design Mobile Apps for Consumer Utility Feedback</b> — SMMU CFP Task 2, Energy Market Authority Singapore · 2017</li>
+  <li><b>Building Human Capacity through Workforce Development</b> — Government of Rajasthan IT Day · 2017</li>
+  <li><b>Accelerating Digital Innovation in Trade &amp; Supply Chain Finance</b> — Fintech Hackathon (facilitator) · 2016</li>
+  <li><b>IBM Smarter Metals &amp; Mining Frameworks</b> — SAP Metals &amp; Mining Forum, Darmstadt · 2014</li>
+  <li><b>Global Mining Template based on SAP</b> — IBM Mining Industry Conference, Bhubaneswar · 2012</li>
+  <li><b>Planning for the Smarter Steel Enterprise</b> — AITISM '12, RDCIS–SAIL, Ranchi · 2012</li>
+  <li><b>Apply the Depth of IBM's Metal Industry Expertise</b> — SAP TechEd, Bangalore · 2011</li>
+  <li><b>TCO Reduction in Solid Fuel Procurement via IBM Smarter Solutions</b> — 2nd Procurement in Steel Industry Conference, mjunction · 2011</li>
+  <li><b>Supply Chain Innovation</b> — IBM US Metals Roundtable, Pittsburgh (8 US metal CIOs/clients) · 2011</li>
+  <li><b>The Role of IT in Green Manufacturing</b> — 1st Green Manufacturing Summit, CII · 2011</li>
+  <li><b>Computerization of Business Functions through ERP &amp; MES</b> — AITISM '09, RDCIS–SAIL, Ranchi · 2009</li>
+</ul>
+
+<h3>Long-form essays on Medium</h3>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">How can AI support the journey towards sustainability?</span></div>
+    <span class="entry-date">Medium · 2021</span>
+  </div>
+  <div class="entry-body">
+    Mapping where AI meaningfully moves the needle on sustainability — measurement, optimisation, and decision support across industrial operations — versus where it is mostly narrative. <a href="https://abhishekkauls.medium.com/how-can-ai-support-the-journey-towards-sustainability-e86c1737a1c5">Read</a>.
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Sustainability Strategy — Green, Smart &amp; Living Buildings</span></div>
+    <span class="entry-date">Medium · 2021</span>
+  </div>
+  <div class="entry-body">
+    First in a sustainability-strategy series. The built-environment angle: what it takes to make buildings green, smart, and living in a way that's economically and operationally durable. <a href="https://abhishekkauls.medium.com/sustainability-strategy-topic-1-green-smart-living-buildings-ae2dd7d422d">Read</a>.
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Developing the Business Case for an AI solution</span></div>
+    <span class="entry-date">Medium · 2021</span>
+  </div>
+  <div class="entry-body">
+    Sizing and justifying AI investments in an enterprise context — the hypothesis, the benefit tree, and the sensitivity analysis matter more than model accuracy. Companion piece to the Vale vessel-chartering engagement. <a href="https://abhishekkauls.medium.com/developing-the-business-case-for-ai-solution-987b2982c296">Read</a>.
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Shifting from a Project-centric to a Product-centric mindset for AI-driven innovation</span></div>
+    <span class="entry-date">Medium · 2020</span>
+  </div>
+  <div class="entry-body">
+    Why AI programmes that stay project-shaped hit a ceiling, and what changes when teams treat the AI asset as a product with a roadmap, an owner, and a durable user base. Drawn from the pre-trade analytics engagement at BP. <a href="https://abhishekkauls.medium.com/shifting-from-a-project-centric-mindset-to-product-centric-mindset-for-ai-driven-innovation-634d1a9e67fc">Read</a>.
+  </div>
+</div>
+
+<p class="meta">More essays at <a href="https://abhishekkauls.medium.com/">abhishekkauls.medium.com</a>. Full publications list with citation counts on <a href="https://scholar.google.com/citations?hl=en&user=fjumZKMAAAAJ">Google Scholar</a>.</p>
+
+<h2 id="talks">talks &amp; community</h2>
+<ul>
+  <li><b>SGLN Tech Leader</b> (inaugural cohort, 2026) — Singapore Leaders Network's technology-industry cohort, managed by the <a href="https://hcli.org/sgln/">Human Capital Leadership Institute</a> (HCLI) and supported by the Singapore EDB and IMDA. <a href="https://www.sgln.hcli.org/sgln-tech/">Programme</a>.</li>
+  <li><b>ExCo member</b> — Business Analytics Chapter, Singapore Computer Society.</li>
+  <li><b>Founding member</b> — IMPACT by LEAD Think Tank, a Stanford LEAD alumni initiative.</li>
+  <li><b>IMAGINE Leader</b> (since Apr 2025) — global leadership community for impact; disruptive innovators, corporate executives, investors, and civil society leaders working to accelerate systems change.</li>
+  <li><b>GMG Group Virtual Forum Series on AI</b> (2021) — invited talk on <i>Ethics in AI for Mining Industry</i>.</li>
+</ul>
+
+<h2 id="education">education</h2>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Doctor of Business Administration (DBA)</span> <span class="entry-sub">— Golden Gate University</span></div>
+    <span class="entry-date">2024 — 2027</span>
+  </div>
+  <div class="entry-body">
+    Research focus: <i>Generative AI Adoption in Technology Consulting Firms</i> — how GenAI reshapes enterprise consulting delivery, client engagement models, and AI-led solution development.
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Professional Certificate Program in Sustainability</span> <span class="entry-sub">— MIT Professional Education</span></div>
+    <span class="entry-date">2023 — 2024</span>
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">Stanford LEAD — Corporate Innovation Certificate</span> <span class="entry-sub">— Stanford Graduate School of Business</span></div>
+    <span class="entry-date">2017 — 2018</span>
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">MBA, Supply Chain &amp; Operations</span> <span class="entry-sub">— Indian Institute of Technology, Kharagpur</span></div>
+    <span class="entry-date">2004 — 2006</span>
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <div><span class="entry-title">BE, Electronics &amp; Telecommunication Engineering</span> <span class="entry-sub">— Modern Education Society's College of Engineering, Pune</span></div>
+    <span class="entry-date">1999 — 2003</span>
+  </div>
+</div>
+
+<h2 id="credentials">certifications &amp; credentials</h2>
+<p class="inline-list">
+  Verified digital credentials on <a href="https://www.credly.com/users/abhishek-kaul">Credly</a> (IBM, SAP, Microsoft) and <a href="https://www.credential.net/profile/abhishekkauls/wallet">Accredible</a> (MIT Professional Education, Stanford LEAD). Selected highlights grouped by theme below; full wallets linked.
+</p>
+
+<h3>Featured</h3>
+<div class="two-col">
+  <div>
+    <h4>Professional Certificate Program in Sustainability</h4>
+    <p class="meta">MIT Professional Education · Aug 2024</p>
+  </div>
+  <div>
+    <h4>Stanford LEAD — Corporate Innovation</h4>
+    <p class="meta">Stanford Graduate School of Business · 2018</p>
+  </div>
+  <div>
+    <h4>Industry Diamond — Energy &amp; Resources</h4>
+    <p class="meta">IBM · valid through Apr 2029</p>
+  </div>
+  <div>
+    <h4>IBM Generative AI Sales</h4>
+    <p class="meta">IBM · valid through Dec 2026</p>
+  </div>
+  <div>
+    <h4>Certified SIRI &amp; COSIRI Assessor</h4>
+    <p class="meta">INCIT · 2022 · Industry 4.0 readiness</p>
+  </div>
+  <div>
+    <h4>BTS Knowledge Leader — Data &amp; Technology Transformation</h4>
+    <p class="meta">IBM · Mar 2025</p>
+  </div>
+</div>
+
+<h3>AI &amp; GenAI</h3>
+<ul>
+  <li>IBM Generative AI Sales — IBM · 2024</li>
+  <li>watsonx.ai Technical Sales Intermediate — IBM · 2024</li>
+  <li>2025 IBMer watsonx Challenge — IBM · Aug 2025</li>
+  <li>Achieve New Heights with Microsoft Gen AI, Copilot Mega… — Microsoft · Aug 2024</li>
+  <li>Enterprise Design Thinking — Team Essentials for AI — IBM · 2020</li>
+  <li>Technology Knowledge 2024 — AI4S4 Hands-on Workshop — SAP · 2023</li>
+  <li>Cloud &amp; Cognitive Patterns — IBM · 2017</li>
+</ul>
+
+<h3>Data science, data engineering &amp; cloud</h3>
+<ul>
+  <li>Applied Data Science with Python — Level 2 · IBM · 2019</li>
+  <li>Python for Data Science — IBM · 2019</li>
+  <li>Data Analysis Using Python — IBM · 2020</li>
+  <li>Data Visualization Using Python — IBM · 2020</li>
+  <li>Big Data Foundations — Levels 1 &amp; 2 · IBM · 2020</li>
+  <li>Hadoop Foundations — Level 1 · IBM · 2020</li>
+  <li>Spark — Level 1 · IBM · 2020</li>
+  <li>Docker Essentials: A Developer Introduction — IBM · 2020</li>
+  <li>IBM Automation: Compass — IBM · 2020</li>
+</ul>
+
+<h3>Sustainability, ESG &amp; green IT</h3>
+<ul>
+  <li>Professional Certificate Program in Sustainability — MIT Professional Education · Aug 2024</li>
+  <li>Sustainability: Strategies and Opportunities for Industry — MIT Professional Education · 2024</li>
+  <li>Life Cycle Assessment: Quantifying Environmental Impacts — MIT Professional Education · 2024</li>
+  <li>Circular Economy: Transition for Future-Ready Industries — MIT Professional Education · 2024</li>
+  <li>Sustainable Infrastructure Systems — MIT Professional Education · 2024</li>
+  <li>Clean Energy Transition Foundations — IBM · 2024</li>
+  <li>Green IT and Responsible Computing Foundations — IBM · 2024</li>
+</ul>
+
+<h3>Industry domain</h3>
+<ul>
+  <li>Industry Diamond — Energy &amp; Resources · IBM · valid through 2029</li>
+  <li>Industry Diamond — Industrial Manufacturing · IBM (previously certified)</li>
+  <li>Industrial Products Insights and Solutions — Platinum · IBM · 2020</li>
+  <li>Industrial Products Insights and Solutions — Gold · IBM · 2016</li>
+  <li>IBM Industry Academy Member · IBM · 2021</li>
+  <li>Certified SIRI &amp; COSIRI Assessor · INCIT · 2022</li>
+</ul>
+
+<h3>Delivery, method &amp; innovation</h3>
+<ul>
+  <li>Stanford LEAD — Corporate Innovation · Stanford GSB · 2018</li>
+  <li>BTS Knowledge Leader — Data &amp; Technology Transformation · IBM · 2025</li>
+  <li>Business Transformation Services Knowledge Leader · IBM · 2023</li>
+  <li>IBM Garage Essentials &amp; Foundation · IBM · 2023</li>
+  <li>Enterprise Design Thinking Practitioner · IBM · 2016</li>
+  <li>Digital Insights — Knowledge Delivery · IBM · 2019</li>
+  <li>Persuasive Communication: Critical Thinking to Enhance your Message · MIT Professional Education · 2024</li>
+</ul>
+
+<h3>Patent badges</h3>
+<ul>
+  <li>First Patent File — IBM · 2021</li>
+  <li>Plateau (patent plateau recognition) — IBM · 2021</li>
+</ul>
+
+<h3>Additional certifications</h3>
+<ul>
+  <li>CPIM (Certified in Production &amp; Inventory Management) — APICS · 2008</li>
+  <li>Salesforce Certified AI Associate — Salesforce</li>
+  <li>Sustainable Business Strategy</li>
+  <li>Client Advisor Masterclass — IBM</li>
+  <li>Business Analytics Chapter — Co-opted Member · Singapore Computer Society · 2024</li>
+</ul>
+
+<h3>Languages</h3>
+<ul>
+  <li><b>English</b> — fluent / native</li>
+  <li><b>Hindi</b> — fluent / native</li>
+  <li><b>German</b> — basic</li>
+</ul>
+
+<p style="margin-top: 18px;">
+  Full verified wallets: <a href="https://www.credly.com/users/abhishek-kaul">Credly</a> (30+ badges) · <a href="https://www.credential.net/profile/abhishekkauls/wallet">Accredible</a> (13 credentials).
+</p>
+
+<h2 id="affiliations">topical index</h2>
+<p class="inline-list">
+  A rough map of what I've actually done hands-on, organised by topic rather than chronology.
+</p>
+
+<h3>AI, GenAI &amp; advanced analytics</h3>
+<ul>
+  <li>AI-driven knowledge management and engineering document intelligence (RAG, ontologies, NLP) — <span class="meta">Keppel</span></li>
+  <li>Digital twins for energy, chemical, and industrial assets (RL, real-time monitoring) — <span class="meta">Sembcorp, Denka</span></li>
+  <li>Commodity-trading analytics: pre-trade, vessel tracking, AIS data — <span class="meta">BP, Vale</span></li>
+  <li>Predictive maintenance and IoT analytics (sensor data, Weibull, GBDT) — <span class="meta">PTT, United Tractors</span></li>
+  <li>Cloud data-platform architecture on AWS / Azure / IBM Cloud for reporting, forecasting, self-service — <span class="meta">Delfi, AEPW, PCL</span></li>
+  <li>Conversational AI and GenAI assistants (Watson, LLM-based) — <span class="meta">Electrolux, Yeo's, Far East</span></li>
+  <li>Requirements engineering and stakeholder translation for AI/ML — LLM, prompt engineering, model validation, data pipeline design</li>
+</ul>
+
+<h3>Sustainability &amp; ESG</h3>
+<ul>
+  <li>ESG data platforms, plastic-waste analytics, sustainability-driven operational insights — <span class="meta">Alliance to End Plastic Waste</span></li>
+</ul>
+
+<h3>ERP-led business transformation</h3>
+<ul>
+  <li>Business process reengineering for supply chain and ERP transformation</li>
+  <li>SAP S/4 HANA greenfield implementations — <span class="meta">Yeo's</span></li>
+  <li>SAP ECC → S/4 upgrades, DRC, BTP, Group Reporting — <span class="meta">Far East Organization</span></li>
+  <li>SAP SCM for supply chain optimisation — <span class="meta">SKF, ArcelorMittal, voestalpine, Lucchini, Ispat, Apollo Tyres</span></li>
+</ul>
+
+<h2 id="contact">contact</h2>
+<p>
+  Best reached by email: <a href="mailto:abhishekkaul@gmail.com">abhishekkaul@gmail.com</a>. I'm based in Singapore (UTC+8). <a href="https://www.linkedin.com/in/kauls/">LinkedIn</a> also works. I answer most messages, though sometimes slowly. If you're reaching out about advisory or speaking, please say so in the subject line.
+</p>
+
+<div class="footer">
+  Last updated: April 2026. Built as a single HTML file, hand-edited. No tracking. No cookies.
+</div>
+
+</body>
+</html>
