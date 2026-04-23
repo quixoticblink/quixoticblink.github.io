@@ -1,39 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Abhishek</title>
-    <style>
-        body {
-            background-color: white;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        img {
-            max-width: 200px;
-            height: auto;
-            border-radius: 50%;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 0.2em;
-        }
-        p.about-me {
-            font-size: 1.2em;
-            color: #555;
-            margin-top: 0;
-            margin-bottom: 1em;
-        }
-        a {
-            color: blue;
-            text-decoration: none;
-        }
-    </style>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhishek Kaul</title>
+<meta name="description" content="Associate Partner, AI Strategy & Transformation at IBM Singapore.">
+<meta property="og:title" content="Abhishek Kaul">
+<meta property="og:description" content="Associate Partner, AI Strategy & Transformation at IBM Singapore.">
+<meta property="og:image" content="https://www.abhishekkaul.com/AbhishekKaul.jpg">
+<meta property="og:url" content="https://www.abhishekkaul.com/">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #555;
+    --faint: #888;
+    --link: #1a5490;
+    --link-hover: #c03020;
+    --rule: #ddd;
+    --bg: #fdfdfa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--bg);
+    margin: 0;
+    padding: 80px 24px;
+    text-align: center;
+  }
+  img.portrait {
+    max-width: 180px;
+    height: auto;
+    border-radius: 50%;
+    border: 1px solid var(--rule);
+    object-fit: cover;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: normal;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px 0;
+    color: var(--ink);
+  }
+  p.tagline {
+    color: var(--muted);
+    font-style: italic;
+    font-size: 16px;
+    margin: 0 0 28px 0;
+  }
+  nav {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    color: var(--faint);
+  }
+  nav a {
+    color: var(--link);
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  nav a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+  }
+  nav span.sep {
+    color: var(--faint);
+  }
+</style>
 </head>
 <body>
-    <h1>Abhishek Kaul</h1>
-    <p class="AI | Sustainability | Digital Transformation ">AI | Sustainability | Digital Transformation</p>
-    <img src="AbhishekKaul.jpg" alt="AbhishekKaul">
-    <p><a href="https://www.linkedin.com/in/kauls/" target="_blank">Connect with me on LinkedIn</a></p>
+  <img src="AbhishekKaul.jpg" alt="Abhishek Kaul" class="portrait">
+  <h1>Abhishek Kaul</h1>
+  <p class="tagline">AI Strategy &amp; Transformation &middot; IBM Singapore</p>
+  <nav>
+    <a href="/aboutme">about me</a>
+    <span class="sep">·</span>
+    <a href="https://www.linkedin.com/in/kauls/" target="_blank" rel="noopener">linkedin</a>
+  </nav>
 </body>
 </html>
